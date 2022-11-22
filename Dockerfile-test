@@ -1,0 +1,17 @@
+#
+# Test stage
+#
+FROM maven:3-openjdk-17-slim AS test
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn test
+
+
+
+#The Dockerfile is pretty straightforward.
+#It starts with a test stage, which runs the unit tests.
+#Then it builds the application in a build stage.
+#Finally, it packages the application in a package stage.
+#The package stage is the one that will be used to run the application.
